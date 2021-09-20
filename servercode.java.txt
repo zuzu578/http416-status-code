@@ -1,0 +1,22 @@
+@RequestMapping(value = "/*/dynamicselectbox")
+	@ResponseBody
+	public HashMap<String , Object> dynamicSelectBoxGetDataType(HttpServletRequest req){
+		logger.debug("dynamicSelectBox get Data !  === " );
+		HashMap<String , Object > returnData = null;
+		returnData = new HashMap<String , Object>();
+		//List<Object> getDataTypeByCollectionTitle = null;
+		KofaCollectionListVO voData = null;
+		//KofaCollectionListVO getDataTypeByCollectionTitle = null;
+		String selectedItems = req.getParameter("selectedItems"); // select box 선택된 컬렉션 title 값을 받아옵니다. 
+		
+		try {
+			voData =  kofacollectionListService.getDataTypeByCollectionTitle(selectedItems);	
+			voData.getcCollectionKofaGroupTitle();
+			returnData.put("cCollectionKofaGroupTitle",voData.getcCollectionKofaGroupTitle());
+			
+			
+		}catch(Exception e) {
+			logger.debug("Exception! => " + e );
+		}
+		return returnData;
+	}
